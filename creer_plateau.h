@@ -1,6 +1,6 @@
-#include "struct.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include "struct.h"
 
 Case **creerplateau(){
     Case **tableau = (Case **)malloc(8 * sizeof(Case *));

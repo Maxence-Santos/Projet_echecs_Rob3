@@ -1,5 +1,5 @@
-#include <stdio.h>
 #include "struct.h"
+#include <stdio.h>
 
 Coup proposition_joueur(){
     Coup coup;

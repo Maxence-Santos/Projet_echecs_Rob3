@@ -1,3 +1,6 @@
+#ifndef struct_h
+#define struct_h
+
 typedef enum { tour, cavalier, fou, reine, roi, pion, vide } Piece;
 typedef enum { blanc, noir } Couleur;
 
@@ -16,4 +19,5 @@ typedef struct {
 typedef struct {
     Case** plateau;
     Couleur joueur_actif;
-} partie;
+} Partie;
+#endif
