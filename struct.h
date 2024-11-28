@@ -8,8 +8,8 @@ typedef struct {
 
 typedef struct {
     int iFrom;
-    int iFrom;
-    int jTo;
+    int jFrom;
+    int iTo;
     int jTo;
 } Coup;
 
