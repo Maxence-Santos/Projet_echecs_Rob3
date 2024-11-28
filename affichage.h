@@ -1,3 +1,6 @@
 #include <stdio.h>
+#include "struct.h"
 
-void affichage()
+void affichage(Partie* partie) {
+    
+}

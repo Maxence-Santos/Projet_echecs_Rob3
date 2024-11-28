@@ -16,4 +16,4 @@ typedef struct {
 typedef struct {
     Case** plateau;
     Couleur joueur_actif;
-} partie;
+} Partie;
