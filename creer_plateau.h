@@ -51,5 +51,6 @@ Case **creerplateau(){
     for (int j = 0; j < 8; j++){
         tableau[7][j].c = blanc;
     }
+
     return tableau;
 }
