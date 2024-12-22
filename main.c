@@ -10,9 +10,9 @@ int main() {
     Partie partie;
     partie.plateau = creerplateau();
     partie.joueur_actif = blanc;
-    affichage(partie.plateau);
-    appliquer_coup(&partie, proposition_joueur());
+    affichage(partie);
+    appliquer_coup(&partie, proposition_joueur(partie));
     printf("%d\n",partie.plateau[0][0].p);
-    affichage(partie.plateau);
-
+    partie.joueur_actif = noir;
+    affichage(partie);
 }

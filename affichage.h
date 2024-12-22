@@ -6,9 +6,9 @@
 char piece_to_char(Piece p, Couleur c) {
     char ch;
     switch (p) {
-        case tour:     ch = 'r'; break;
-        case cavalier: ch = 'n'; break;
-        case fou:      ch = 'b'; break;
+        case tour:     ch = 't'; break;
+        case cavalier: ch = 'c'; break;
+        case fou:      ch = 'f'; break;
         case reine:    ch = 'q'; break;
         case roi:      ch = 'k'; break;
         case pion:     ch = 'p'; break;
@@ -17,7 +17,8 @@ char piece_to_char(Piece p, Couleur c) {
     return (c == blanc && !(p = vide) ) ? (ch - 32) : ch; // Mettre en majuscule pour les pièces blanches
 }
 
-void affichage(Case **tableau) {
+void affichage(Partie partie) {
+    Case** tableau = partie.plateau;
     for (int i = 0; i < 8; i++){
         printf("+-");
     }
@@ -32,5 +33,12 @@ void affichage(Case **tableau) {
             printf("+-");
         }
         printf("+\n");
+    }
+
+    if (partie.joueur_actif == blanc){
+        printf("Au tour des blancs de jouer\n");
+    }
+    else{
+        printf("Au tour des noirs de jouer\n");
     }
 }
