@@ -14,7 +14,7 @@ char piece_to_char(Piece p, Couleur c) {
         case pion:     ch = 'p'; break;
         case vide:     ch = ' '; break;
     }
-    return (c == blanc && !(p = vide) ) ? (ch - 32) : ch; // Mettre en majuscule pour les pièces blanches
+    return (c == blanc && p != vide) ? toupper(ch) : ch; // Mettre en majuscule pour les pièces blanches
 }
 
 void affichage(Partie partie) {
