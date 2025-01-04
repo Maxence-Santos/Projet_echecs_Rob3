@@ -2,7 +2,7 @@
 #define struct_h
 
 typedef enum { tour, cavalier, fou, reine, roi, pion, vide } Piece;
-typedef enum { blanc, noir } Couleur;
+typedef enum { blanc, noir, couleurvide } Couleur;
 
 typedef struct {
     Piece p;

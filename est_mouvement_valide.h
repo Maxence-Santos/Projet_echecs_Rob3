@@ -9,7 +9,7 @@ bool est_mouvement_valide(Coup coup, Piece type_piece, Partie partie) {
     switch (type_piece) {
         case roi:
         // Vérifier la case d'arrivée
-            if (partie.plateau[coup.iTo][coup.jTo].p != vide || partie.plateau[coup.iTo][coup.jTo].c != partie.joueur_actif) {
+            if (partie.plateau[coup.iTo][coup.jTo].p != vide && partie.plateau[coup.iTo][coup.jTo].c == partie.joueur_actif) {
                 return false;
             }
             return (di <= 1 && dj <= 1);
@@ -33,7 +33,7 @@ bool est_mouvement_valide(Coup coup, Piece type_piece, Partie partie) {
                 }
             }
             // Vérifier la case d'arrivée
-            if (partie.plateau[coup.iTo][coup.jTo].p != vide || partie.plateau[coup.iTo][coup.jTo].c != partie.joueur_actif) {
+            if (partie.plateau[coup.iTo][coup.jTo].p != vide && partie.plateau[coup.iTo][coup.jTo].c == partie.joueur_actif) {
                 return false;
             }
             return (di == dj || di == 0 || dj == 0);
@@ -48,7 +48,7 @@ bool est_mouvement_valide(Coup coup, Piece type_piece, Partie partie) {
                 }
             }
             // Vérifier la case d'arrivée
-            if (partie.plateau[coup.iTo][coup.jTo].p != vide || partie.plateau[coup.iTo][coup.jTo].c != partie.joueur_actif) {
+            if (partie.plateau[coup.iTo][coup.jTo].p != vide && partie.plateau[coup.iTo][coup.jTo].c == partie.joueur_actif) {
                 return false;
             }
             return (di == 0 || dj == 0);
@@ -63,13 +63,13 @@ bool est_mouvement_valide(Coup coup, Piece type_piece, Partie partie) {
                 }
             }
             // Vérifier la case d'arrivée
-            if (partie.plateau[coup.iTo][coup.jTo].p != vide) {
+            if (partie.plateau[coup.iTo][coup.jTo].p != vide && partie.plateau[coup.iTo][coup.jTo].c == partie.joueur_actif) {
                 return false;
             }
             return (di == dj);
         case cavalier:
         // Vérifier la case d'arrivée
-            if (partie.plateau[coup.iTo][coup.jTo].p != vide || partie.plateau[coup.iTo][coup.jTo].c != partie.joueur_actif) {
+            if (partie.plateau[coup.iTo][coup.jTo].p != vide && partie.plateau[coup.iTo][coup.jTo].c == partie.joueur_actif) {
                 return false;
             }
             return (di == 2 && dj == 1) || (di == 1 && dj == 2);
@@ -81,7 +81,7 @@ bool est_mouvement_valide(Coup coup, Piece type_piece, Partie partie) {
                 return true;
             }
             // Vérifier la case d'arrivée
-            if (partie.plateau[coup.iTo][coup.jTo].p != vide || partie.plateau[coup.iTo][coup.jTo].c != partie.joueur_actif) {
+            if (partie.plateau[coup.iTo][coup.jTo].p != vide && partie.plateau[coup.iTo][coup.jTo].c == partie.joueur_actif) {
                 return false;
             }
             return false;

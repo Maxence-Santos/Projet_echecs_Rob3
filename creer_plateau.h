@@ -30,7 +30,7 @@ Case **creerplateau(){
     {
         for (int j = 0; j < 8; j++){
             tableau[i][j].p = vide;
-            tableau[i][j].c = noir;
+            tableau[i][j].c = couleurvide;
         }
     }
 
