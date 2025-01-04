@@ -9,7 +9,7 @@ Coup proposition_joueur(Partie partie){
     printf("Entrez la case de la pièce que vous voulez déplacer (ex : A5) : ");
     scanf("%2s", case_from);
     coup.jFrom = case_from[0] - 'A'; //Convertir la lettre en indice de colonne
-    coup.iFrom = case_from[1] - '1'; //Convertir le chiffre en indice de ligne
+    coup.iFrom = '8' - (case_from[1]); //Convertir le chiffre en indice de ligne
     if (partie.joueur_actif != partie.plateau[coup.iFrom][coup.jFrom].c){
         printf("Ce n'est pas votre pièce, veuillez recommencer\n");
         return proposition_joueur(partie);
@@ -17,7 +17,7 @@ Coup proposition_joueur(Partie partie){
     printf("Entrez la case où vous voulez déplacer la pièce : ");
     scanf("%2s", case_to);
     coup.jTo = case_to[0] - 'A'; //Convertir la lettre en indice de colonne
-    coup.iTo = case_to[1] - '1'; //Convertir le chiffre en indice de ligne
+    coup.iTo = '8'-(case_to[1]); //Convertir le chiffre en indice de ligne
     if (est_mouvement_valide(coup,partie.plateau[coup.iFrom][coup.jFrom].p,partie)){
         return coup;
     }
