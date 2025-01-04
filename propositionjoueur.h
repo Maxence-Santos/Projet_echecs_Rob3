@@ -5,7 +5,7 @@
 Coup proposition_joueur(Partie partie){
     Coup coup;
     char case_from[3], case_to[3];
-    printf("Entrez la case de la pièce que vous voulez déplacer : (ex : A5)");
+    printf("Entrez la case de la pièce que vous voulez déplacer (ex : A5) : ");
     scanf("%2s", case_from);
     coup.jFrom = case_from[0] - 'A'; //Convertir la lettre en indice de colonne
     coup.iFrom = 8 - (case_from[1] - '0'); //Convertir le chiffre en indice de ligne
