@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "struct.h"
 #include "creer_plateau.h"
 #include "affichage.h"
 #include "appliquercoup.h"
 #include "propositionjoueur.h"
-#include "struct.h"
+
 
 int main() {
     int mat = 0;
