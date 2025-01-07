@@ -1,15 +1,16 @@
 #include <stdbool.h>
 #include <math.h>
+#include <stdlib.h>
 #include "../est_mouvement_valide.h"
 
-bool est_mouvement_valide(Coup coup, Piece type_piece, Partie partie) {
+bool est_mouvement_valide(Coup coup, Piece type_piece, Partie partie, Couleur joueur_actif) {
     int di = abs(coup.iTo - coup.iFrom);
     int dj = abs(coup.jTo - coup.jFrom);
 
     switch (type_piece) {
         case roi:
             // Vérifier la case d'arrivée
-            if (partie.plateau[coup.iTo][coup.jTo].p != vide && partie.plateau[coup.iTo][coup.jTo].c == partie.joueur_actif) {
+            if (partie.plateau[coup.iTo][coup.jTo].p != vide && partie.plateau[coup.iTo][coup.jTo].c == joueur_actif) {
                 return false;
             }
             return (di <= 1 && dj <= 1);
@@ -34,7 +35,7 @@ bool est_mouvement_valide(Coup coup, Piece type_piece, Partie partie) {
                 }
             }
             // Vérifier la case d'arrivée
-            if (partie.plateau[coup.iTo][coup.jTo].p != vide && partie.plateau[coup.iTo][coup.jTo].c == partie.joueur_actif) {
+            if (partie.plateau[coup.iTo][coup.jTo].p != vide && partie.plateau[coup.iTo][coup.jTo].c == joueur_actif) {
                 return false;
             }
             return (di == dj || di == 0 || dj == 0);
@@ -50,7 +51,7 @@ bool est_mouvement_valide(Coup coup, Piece type_piece, Partie partie) {
                 }
             }
             // Vérifier la case d'arrivée
-            if (partie.plateau[coup.iTo][coup.jTo].p != vide && partie.plateau[coup.iTo][coup.jTo].c == partie.joueur_actif) {
+            if (partie.plateau[coup.iTo][coup.jTo].p != vide && partie.plateau[coup.iTo][coup.jTo].c == joueur_actif) {
                 return false;
             }
             return (di == 0 || dj == 0);
@@ -66,14 +67,14 @@ bool est_mouvement_valide(Coup coup, Piece type_piece, Partie partie) {
                 }
             }
             // Vérifier la case d'arrivée
-            if (partie.plateau[coup.iTo][coup.jTo].p != vide && partie.plateau[coup.iTo][coup.jTo].c == partie.joueur_actif) {
+            if (partie.plateau[coup.iTo][coup.jTo].p != vide && partie.plateau[coup.iTo][coup.jTo].c == joueur_actif) {
                 return false;
             }
             return (di == dj);
 
         case cavalier:
             // Vérifier la case d'arrivée
-            if (partie.plateau[coup.iTo][coup.jTo].p != vide && partie.plateau[coup.iTo][coup.jTo].c == partie.joueur_actif) {
+            if (partie.plateau[coup.iTo][coup.jTo].p != vide && partie.plateau[coup.iTo][coup.jTo].c == joueur_actif) {
                 return false;
             }
             return (di == 2 && dj == 1) || (di == 1 && dj == 2);
@@ -85,10 +86,14 @@ bool est_mouvement_valide(Coup coup, Piece type_piece, Partie partie) {
             } else if (di == 1 && dj == 1 && partie.plateau[coup.iTo][coup.jTo].p != vide) {
                 return true;
             }
-            // Vérifier la case d'arrivée
-            if (partie.plateau[coup.iTo][coup.jTo].p != vide && partie.plateau[coup.iTo][coup.jTo].c == partie.joueur_actif) {
-                return false;
+            // Le pion peut se déplacer de deux cases en avant s'il n'a pas encore bougé
+            if (di == 2 && dj == 0 && joueur_actif == 1 && coup.iFrom == 1 && coup.iTo == 3 && partie.plateau[2][coup.jTo].p == vide) {
+                return true;
             }
+            if (di == 2 && dj == 0 && joueur_actif == 0 && coup.iFrom == 6 && coup.iTo == 4 && partie.plateau[5][coup.jTo].p == vide) {
+                return true;
+            }
+
             return false;
 
         default:

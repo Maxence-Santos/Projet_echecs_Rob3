@@ -5,6 +5,7 @@
 #include "affichage.h"
 #include "appliquercoup.h"
 #include "propositionjoueur.h"
+#include "est_en_echec.h"
 
 
 int main() {
@@ -15,10 +16,15 @@ int main() {
     while (!mat) {
         partie.joueur_actif = blanc;
         affichage(partie);
+        if (est_en_echec(partie, partie.joueur_actif)){
+            printf("Echec au roi blanc\n");
+        }
         appliquer_coup(&partie, proposition_joueur(partie));
-        printf("%d\n",partie.plateau[0][0].p);
         partie.joueur_actif = noir;
         affichage(partie);
+        if (est_en_echec(partie, partie.joueur_actif)){
+            printf("Echec au roi noir\n");
+        }
         appliquer_coup(&partie, proposition_joueur(partie));
     }    
 }
