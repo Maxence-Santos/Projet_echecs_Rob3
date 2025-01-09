@@ -1,6 +1,7 @@
 #include "../propositionjoueur.h"
 #include "../sauvegarde.h"
 #include <stdio.h>
+#include "../affichage.h"
 
 Coup proposition_joueur(Partie partie) {
     Coup coup;
@@ -104,8 +105,10 @@ Coup proposition_joueur(Partie partie) {
         partie2 = copie_tableau(partie);
         appliquer_coup(&partie2, coup);
 
+        printf(" \n"); // SI LE PRINT ICI N EST PAS MIS, EST_EN_ECHEC NE MARCHE PAS
+
         // Vérifier si le roi est en échec après le mouvement
-        if (est_en_echec(partie2, partie.joueur_actif)) {
+        if (est_en_echec(partie2, partie2.joueur_actif)) {
             printf("Mouvement invalide, votre roi serait en echec. Veuillez recommencer.\n");
             libererTableau(partie2);
             return proposition_joueur(partie);  // Re-demander une commande

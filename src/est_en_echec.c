@@ -2,6 +2,7 @@
 #include <math.h>
 #include "../est_en_echec.h"
 #include "../est_mouvement_valide.h"
+#include <stdio.h>
 
 bool est_en_echec(Partie partie, Couleur joueur_actif) {
     int iroi, jroi, autrejoueur;
@@ -22,6 +23,7 @@ bool est_en_echec(Partie partie, Couleur joueur_actif) {
             }
         }
     }
+
 
     // Balayage du plateau pour trouver les pièces adverses
 

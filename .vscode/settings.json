@@ -2,6 +2,7 @@
     "files.associations": {
         "creer_plateau.h": "c",
         "affichage.h": "c",
-        "appliquercoup.h": "c"
+        "appliquercoup.h": "c",
+        "string.h": "c"
     }
 }

@@ -3,6 +3,7 @@
 #include <ctype.h>
 #include "../affichage.h"
 
+// Fonction pour convertir une pièce en un caractère, en tenant compte de sa couleur.
 char piece_to_char(Piece p, Couleur c) {
     char ch;
     switch (p) {
@@ -17,6 +18,7 @@ char piece_to_char(Piece p, Couleur c) {
     return (c == blanc && p != vide) ? toupper(ch) : ch; // Mettre en majuscule pour les pièces blanches
 }
 
+// Fonction pour afficher l'état du jeu à l'écran (sortie console).
 void affichage(Partie partie) {
     Case** tableau = partie.plateau;
     printf("  A B C D E F G H\n");

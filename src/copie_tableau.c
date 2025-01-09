@@ -12,6 +12,9 @@ Partie copie_tableau(Partie partie){
         }
     }
     copie.joueur_actif = partie.joueur_actif;
+    copie.nb_coups = partie.nb_coups;
+    copie.temps_blanc = partie.temps_blanc;
+    copie.temps_noir = partie.temps_noir;
     return copie;
 }
 

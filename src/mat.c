@@ -1,6 +1,7 @@
 #include <stdbool.h>
 #include <math.h>
 #include "../mat.h"
+#include <stdio.h>
 
 bool est_en_mat(Partie partie, Couleur joueur_verif) {
     int iroi, jroi;
@@ -29,6 +30,7 @@ bool est_en_mat(Partie partie, Couleur joueur_verif) {
             if (est_mouvement_valide(coup, roi, partie, joueur_verif)) {
                 partie2 = copie_tableau(partie);
                 appliquer_coup(&partie2, coup);
+                printf(" \n");
                 if (!est_en_echec(partie2, joueur_verif)) {
                     return false;
                 }

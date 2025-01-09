@@ -2,6 +2,7 @@
 #define AFFICHAGE_H
 
 #include "struct.h"
+#include <string.h>
 
 // Fonction pour obtenir le caractère représentant une pièce
 char piece_to_char(Piece p, Couleur c);

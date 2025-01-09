@@ -62,6 +62,7 @@ int main() {
         affichage(partie);
         // Vérifier si le joueur actif est en échec
         if (est_en_echec(partie, partie.joueur_actif)) {
+            printf(" \n");
             if (est_en_mat(partie, partie.joueur_actif)) {
                 if (partie.joueur_actif == blanc) {
                     printf("Echec et mat, les noirs gagnent !\n");
@@ -78,13 +79,11 @@ int main() {
             }
         }
 
-        printf("Il vous reste %d secondes pour jouer.\n", partie.joueur_actif == blanc ? partie.temps_blanc : partie.temps_noir);
-
         // Afficher le temps restant pour le joueur actif
         if (partie.joueur_actif == blanc) {
-            printf("Temps restant pour les blancs : %d\n", partie.temps_blanc);
+            printf("Temps restant pour les blancs : %d secondes\n", partie.temps_blanc);
         } else {
-            printf("Temps restant pour les noirs : %d\n", partie.temps_noir);
+            printf("Temps restant pour les noirs : %d secondes\n", partie.temps_noir);
         }
         int avant = time(NULL);
         // Appliquer le coup proposé par le joueur
