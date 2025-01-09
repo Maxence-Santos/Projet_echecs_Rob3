@@ -7,10 +7,10 @@
 bool est_en_echec(Partie partie, Couleur joueur_actif) {
     int iroi, jroi, autrejoueur;
     if (joueur_actif == blanc) {
-        int autrejoueur = noir;
+        autrejoueur = noir;
     }
     else {
-        int autrejoueur = blanc;
+        autrejoueur = blanc;
     }
     
     // Balayage du plateau pour trouver le roi du joueur actif
