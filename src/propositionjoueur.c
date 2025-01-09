@@ -17,7 +17,7 @@ Coup proposition_joueur(Partie partie) {
         return proposition_joueur(partie);  // Re-demander une commande après sauvegarde
     }
 
-    if (case_from[0] == 'r' && case_from[5] == '\0') {
+    if (case_from[0] == 'r' && case_from[1] == '\0') {
         supprimer_fichier();
         return proposition_joueur(partie);
     }
@@ -80,7 +80,7 @@ Coup proposition_joueur(Partie partie) {
         exit(0);  // Quitte le programme
     }
 
-    if (case_from[0] == 'r' && case_from[5] == '\0') {
+    if (case_from[0] == 'r' && case_from[1] == '\0') {
         supprimer_fichier();
         return proposition_joueur(partie);
     }

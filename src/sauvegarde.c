@@ -13,7 +13,7 @@ void sauvegarder_partie(Partie partie) {
 
     int id = prochain_identifiant();
     fprintf(fichier, "# Partie %d\n", id);
-    fprintf(fichier, "# Joueur %d\n", partie.joueur_actif);
+    fprintf(fichier, "# Joueur %d, Temps restant B : %d, N : %d, Nb de coup %d\n", partie.joueur_actif, partie.temps_blanc, partie.temps_noir, partie.nb_coups);
 
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
@@ -27,7 +27,7 @@ void sauvegarder_partie(Partie partie) {
     printf("Partie sauvegardee sous l'identifiant %d.\n", id);
 }
 
-bool charger_partie(Partie partie, int id, Couleur *jactif) {
+bool charger_partie(Partie partie, int id, int *donnees) {
     FILE *file = fopen(FICHIER_SAUVEGARDE, "r");
     if (!file) {
         perror("Erreur lors de l'ouverture du fichier de sauvegarde");
@@ -40,9 +40,14 @@ bool charger_partie(Partie partie, int id, Couleur *jactif) {
         if (sscanf(buffer, "# Partie %d", &partie_id) == 1 && partie_id == id) {
             printf("Chargement de la partie %d...\n", id);
             // Charger les données de la partie ici (plateau, joueur_actif)
-            int a;
-            fscanf(file, "# Joueur %d", &a);
-            *jactif = a;
+
+            int a1, a2, a3, a4; 
+            fscanf(file, "# Joueur %d, Temps restant B : %d, N : %d, Nb de coup %d", &a1, &a2, &a3, &a4);
+            donnees[0] = a1;
+            donnees[1] = a2;
+            donnees[2] = a3;
+            donnees[3] = a4;
+
             for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
                     int piece, couleur;
@@ -58,7 +63,6 @@ bool charger_partie(Partie partie, int id, Couleur *jactif) {
     }
 
     fclose(file);
-    printf("Aucune partie sauvegardee trouvee.\n");
     return false; // Aucune partie trouvée
 }
 

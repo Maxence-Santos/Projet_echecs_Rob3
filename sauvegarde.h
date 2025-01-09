@@ -10,7 +10,7 @@
 void sauvegarder_partie(Partie partie);
 
 // Fonction pour charger une partie
-bool charger_partie(Partie partie, int id, Couleur *jactif);
+bool charger_partie(Partie partie, int id, int *donnees);
 
 // Fonction pour lister les parties disponibles
 int lister_parties();
