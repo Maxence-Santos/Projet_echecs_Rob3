@@ -14,7 +14,6 @@ Coup proposition_joueur(Partie partie) {
     // Gestion de la commande 's' pour sauvegarder
     if (case_from[0] == 's' && case_from[1] == '\0') {
         sauvegarder_partie(partie);
-        printf("Partie sauvegardee avec succes.\n");
         return proposition_joueur(partie);  // Re-demander une commande après sauvegarde
     }
 
@@ -63,7 +62,6 @@ Coup proposition_joueur(Partie partie) {
     // Gestion de la commande 's' pour sauvegarder
     if (case_to[0] == 's' && case_to[1] == '\0') {
         sauvegarder_partie(partie);
-        printf("Partie sauvegardee avec succes.\n");
         return proposition_joueur(partie);  // Re-demander une commande après sauvegarde
     }
 

@@ -1,6 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <ctype.h>
 #include "../affichage.h"
 
 // Fonction pour convertir une pièce en un caractère, en tenant compte de sa couleur.

@@ -1,6 +1,8 @@
 #ifndef MAT_H
 #define MAT_H
 
+#include <math.h>
+#include <stdio.h>
 #include <stdbool.h>
 #include "struct.h"
 #include "est_en_echec.h"

@@ -6,6 +6,9 @@
 bool est_mouvement_valide(Coup coup, Piece type_piece, Partie partie, Couleur joueur_actif) {
     int di = abs(coup.iTo - coup.iFrom);
     int dj = abs(coup.jTo - coup.jFrom);
+    if (di == 0 && dj == 0) {
+        return false;
+    }
 
     switch (type_piece) {
         case roi:

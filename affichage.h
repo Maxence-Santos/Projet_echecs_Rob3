@@ -3,6 +3,9 @@
 
 #include "struct.h"
 #include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
 
 // Fonction pour obtenir le caractère représentant une pièce
 char piece_to_char(Piece p, Couleur c);

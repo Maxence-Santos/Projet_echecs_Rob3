@@ -1,7 +1,4 @@
-#include <stdbool.h>
-#include <math.h>
 #include "../mat.h"
-#include <stdio.h>
 
 bool est_en_mat(Partie partie, Couleur joueur_verif) {
     int iroi, jroi;
@@ -34,6 +31,28 @@ bool est_en_mat(Partie partie, Couleur joueur_verif) {
                     return false;
                 }
                 libererTableau(partie2);
+            }
+        }
+    }
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            if ((partie.plateau[i][j].p == pion || partie.plateau[i][j].p == reine ||partie.plateau[i][j].p == tour || partie.plateau[i][j].p == fou || partie.plateau[i][j].p == cavalier) && partie.plateau[i][j].c == joueur_verif) {
+                coup.iFrom = i;
+                coup.jFrom = j;
+                for (int k = 0; k < 8; k++) {
+                    for (int l = 0; l < 8; l++) {
+                        coup.iTo = k;
+                        coup.jTo = l;
+                        if (est_mouvement_valide(coup, partie.plateau[i][j].p, partie, joueur_verif)) {
+                            partie2 = copie_tableau(partie);
+                            appliquer_coup(&partie2, coup);
+                            if (!est_en_echec(partie2, joueur_verif)) {
+                                return false;
+                            }
+                            libererTableau(partie2);
+                        }
+                    }
+                }
             }
         }
     }
