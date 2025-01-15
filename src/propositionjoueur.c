@@ -8,7 +8,7 @@ Coup proposition_joueur(Partie partie) {
     char case_from[3], case_to[3];
 
     // Demander à l'utilisateur la case de départ
-    printf("Entrez la case de la piece que vous voulez deplacer (ou 's' pour sauvegarder / 'q' pour quitter / 'r' pour reset ) : ");
+    printf("Entrez la case de la piece que vous voulez deplacer : ");
     scanf("%2s", case_from);
 
     // Gestion de la commande 's' pour sauvegarder
@@ -56,7 +56,7 @@ Coup proposition_joueur(Partie partie) {
     }
 
     // Demander à l'utilisateur la case de destination
-    printf("Entrez la case de la piece que vous voulez deplacer (ou 's' pour sauvegarder / 'q' pour quitter / 'r' pour reset ) : ");
+    printf("Entrez la case de la piece que vous voulez deplacer : ");
     scanf("%2s", case_to);
 
     // Gestion de la commande 's' pour sauvegarder
@@ -115,26 +115,20 @@ Coup proposition_joueur(Partie partie) {
         // Promotion du pion
         if ((coup.iTo == 0 || coup.iTo == 7) && partie.plateau[coup.iFrom][coup.jFrom].p == pion) {
             printf("\nPromotion du pion !\n");
-            printf("Entrez la piece de promotion (T, C, F, Q) : ");
-            char promotion;
-            scanf(" %c", &promotion);
-            switch (promotion) {
-                case 'T':
-                    partie.plateau[coup.iFrom][coup.jFrom].p = tour;
-                    break;
-                case 'C':
-                    partie.plateau[coup.iFrom][coup.jFrom].p = cavalier;
-                    break;
-                case 'F':
-                    partie.plateau[coup.iFrom][coup.jFrom].p = fou;
-                    break;
-                case 'Q':
-                    partie.plateau[coup.iFrom][coup.jFrom].p = reine;
-                    break;
-                default:
-                    printf("Piece de promotion invalide, promotion automatique en reine.\n");
-                    partie.plateau[coup.iFrom][coup.jFrom].p = reine;
-                    break;
+            printf("Entrez la piece de promotion (Tour, Cavalier, Fou, Reine) : ");
+            char promotion[10];
+            scanf("%9s", promotion);
+            if (strcmp(promotion, "Tour") == 0 || strcmp(promotion, "tour") == 0) {
+                partie.plateau[coup.iFrom][coup.jFrom].p = tour;
+            } else if (strcmp(promotion, "Cavalier") == 0 || strcmp(promotion, "cavalier") == 0) {
+                partie.plateau[coup.iFrom][coup.jFrom].p = cavalier;
+            } else if (strcmp(promotion, "Fou") == 0 || strcmp(promotion, "fou") == 0) {
+                partie.plateau[coup.iFrom][coup.jFrom].p = fou;
+            } else if (strcmp(promotion, "Reine") == 0 || strcmp(promotion, "reine") == 0) {
+                partie.plateau[coup.iFrom][coup.jFrom].p = reine;
+            } else {
+                printf("Piece de promotion invalide, promotion automatique en reine.\n");
+                partie.plateau[coup.iFrom][coup.jFrom].p = reine;
             }
         }
         return coup;  // Retourner le coup s'il est valide

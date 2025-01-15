@@ -21,6 +21,10 @@ int score(Partie partie, Couleur joueur_actif){
                     case reine:
                         score += 9;
                         break;
+                    case roi:
+                        break;
+                    case vide:
+                        break;
                 }
             }
         }

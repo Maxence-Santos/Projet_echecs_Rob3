@@ -65,26 +65,20 @@ int main() {
             printf(" \n");
             if (est_en_mat(partie, partie.joueur_actif)) {
                 if (partie.joueur_actif == blanc) {
-                    printf("Echec et mat, les noirs gagnent !\n");
+                    printf("\n\nEchec et mat, les noirs gagnent !\n");
                 } else {
-                    printf("Echec et mat, les blancs gagnent !\n");
+                    printf("\n\nEchec et mat, les blancs gagnent !\n");
                 }
                 mat = 1;
                 break;
             }
             if (partie.joueur_actif == blanc) {
-                printf("Echec au roi blanc.\n");
+                printf("\nEchec au roi blanc.\n");
             } else {
-                printf("Echec au roi noir.\n");
+                printf("\nEchec au roi noir.\n");
             }
         }
 
-        // Afficher le temps restant pour le joueur actif
-        if (partie.joueur_actif == blanc) {
-            printf("Temps restant pour les blancs : %d secondes\n", partie.temps_blanc);
-        } else {
-            printf("Temps restant pour les noirs : %d secondes\n", partie.temps_noir);
-        }
         int avant = time(NULL);
         // Appliquer le coup proposé par le joueur
         appliquer_coup(&partie, proposition_joueur(partie));
