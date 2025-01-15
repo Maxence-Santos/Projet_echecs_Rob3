@@ -18,6 +18,7 @@ SRC_FILES = main.c \
             $(SRC_DIR)/mat.c \
             $(SRC_DIR)/propositionjoueur.c \
             $(SRC_DIR)/sauvegarde.c
+            $(SRC_DIR)/score.c
 
 # Liste des fichiers d'en-tête (.h)
 INC_FILES = affichage.h \
@@ -30,6 +31,7 @@ INC_FILES = affichage.h \
             propositionjoueur.h \
             sauvegarde.h \
             struct.h
+            score.h
 
 # Nom du fichier exécutable
 OUTPUT = main
