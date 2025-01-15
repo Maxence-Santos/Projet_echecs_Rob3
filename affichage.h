@@ -6,9 +6,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include "score.h"
 
 // Fonction pour obtenir le caractère représentant une pièce
-char piece_to_char(Piece p, Couleur c);
+void afficher_piece(Piece p, Couleur c);
 
 // Fonction pour afficher l'état du plateau de jeu
 void affichage(Partie partie);

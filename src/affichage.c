@@ -1,46 +1,90 @@
 #include "../affichage.h"
 
 // Fonction pour convertir une pièce en un caractère, en tenant compte de sa couleur.
-char piece_to_char(Piece p, Couleur c) {
-    char ch;
+void afficher_piece(Piece p, Couleur c) {
     switch (p) {
-        case tour:     ch = 't'; break;
-        case cavalier: ch = 'c'; break;
-        case fou:      ch = 'f'; break;
-        case reine:    ch = 'q'; break;
-        case roi:      ch = 'k'; break;
-        case pion:     ch = 'p'; break;
-        case vide:     ch = ' '; break;
+        case tour:
+            if (c != blanc) {
+                printf("♖ ");
+            } else {
+                printf("♜ ");
+            }
+        break;
+        case cavalier:
+        if (c != blanc) {
+                printf("♘ ");
+            } else {
+                printf("♞ ");
+            }
+        break;
+        case fou:
+        if (c != blanc) {
+                printf("♗ ");
+            } else {
+                printf("♝ ");
+            }
+        break;
+        case reine:
+        if (c != blanc) {
+                printf("♕ ");
+            } else {
+                printf("♛ ");
+            }
+        break;
+        case roi:
+        if (c != blanc) {
+                printf("♔ ");
+            } else {
+                printf("♚ ");
+            }
+        break;
+        case pion:
+        if (c != blanc) {
+                printf("♙ ");
+            } else {
+                printf("♟ ");
+            }
+        break;
+        case vide:
+            printf("  ");
+        break;
     }
-    return (c == blanc && p != vide) ? toupper(ch) : ch; // Mettre en majuscule pour les pièces blanches
 }
 
 // Fonction pour afficher l'état du jeu à l'écran (sortie console).
 void affichage(Partie partie) {
     Case** tableau = partie.plateau;
-    printf("  A B C D E F G H\n");
-    printf(" ");
-    for (int i = 0; i < 8; i++) {
-        printf("+-");
+    if (partie.joueur_actif == blanc){
+        printf("\n\n  A  B  C  D  E  F  G  H            Au tour des blancs de jouer\n ");
     }
-    printf("+\n");
+    else{
+        printf("\n\n  A  B  C  D  E  F  G  H            Au tour des noirs de jouer\n ");
+    }
+    for (int i = 0; i < 8; i++) {
+        printf("┼──");
+    }
+    printf("┼\n");
     for (int i = 0; i < 8; i++) {
         printf("%d", 8 - i);
         for (int j = 0; j < 8; j++) {
-            char piece = piece_to_char(tableau[i][j].p, tableau[i][j].c);
-            printf("|%c", piece);
+            printf("│");
+            afficher_piece(tableau[i][j].p, tableau[i][j].c);
         }
-        printf("|%d\n", 8 - i);
+        if (i == 7){
+            printf("│1  Score blanc: %d et temps restant : %d secondes\n", score(partie, blanc) - score(partie, noir), partie.temps_blanc);
+        }
+        else if (i == 0){
+            printf("│8  Score noir: %d et temps restant : %d secondes\n", score(partie, noir) - score(partie, blanc), partie.temps_noir);
+        }
+
+        else{
+        printf("│%d\n", 8 - i);
+        }
         printf(" ");
         for (int i = 0; i < 8; i++) {
-            printf("+-");
+            printf("┼──");
         }
-        printf("+\n");
+        printf("┼\n");
     }
-    printf("  A B C D E F G H\n");
-    if (partie.joueur_actif == blanc) {
-        printf("Au tour des blancs de jouer\n");
-    } else {
-        printf("Au tour des noirs de jouer\n");
-    }
+    printf("  A  B  C  D  E  F  G  H\n\n\n");
 }
