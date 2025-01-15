@@ -1,30 +1,49 @@
+# Nom du compilateur
 CC = gcc
-CFLAGS = -Wall -Wextra -std=c99
-LDFLAGS =
 
+# Options de compilation
+CFLAGS = -Wall
+
+# Répertoire des fichiers sources
 SRC_DIR = src
-OBJ_DIR = obj
-BIN_DIR = bin
 
-SRCS = $(wildcard $(SRC_DIR)/*.c)
-OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
-TARGET = $(BIN_DIR)/echecs
+# Liste des fichiers sources (.c)
+SRC_FILES = main.c \
+            $(SRC_DIR)/affichage.c \
+            $(SRC_DIR)/appliquercoup.c \
+            $(SRC_DIR)/copie_tableau.c \
+            $(SRC_DIR)/creer_plateau.c \
+            $(SRC_DIR)/est_en_echec.c \
+            $(SRC_DIR)/est_mouvement_valide.c \
+            $(SRC_DIR)/mat.c \
+            $(SRC_DIR)/propositionjoueur.c \
+            $(SRC_DIR)/sauvegarde.c
 
-all: $(TARGET)
+# Liste des fichiers d'en-tête (.h)
+INC_FILES = affichage.h \
+            appliquercoup.h \
+            copie_tableau.h \
+            creer_plateau.h \
+            est_en_echec.h \
+            est_mouvement_valide.h \
+            mat.h \
+            propositionjoueur.h \
+            sauvegarde.h \
+            struct.h
 
-$(TARGET): $(OBJS) | $(BIN_DIR)
-    $(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
+# Nom du fichier exécutable
+OUTPUT = main
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
-    $(CC) $(CFLAGS) -c $< -o $@
+# Règle par défaut : compilation de l'exécutable
+all: $(OUTPUT)
 
-$(OBJ_DIR):
-    mkdir -p $(OBJ_DIR)
+# Règle pour la création de l'exécutable
+$(OUTPUT): $(SRC_FILES) $(INC_FILES)
+	$(CC) $(CFLAGS) $(SRC_FILES) -o $(OUTPUT)
 
-$(BIN_DIR):
-    mkdir -p $(BIN_DIR)
-
+# Règle pour nettoyer les fichiers générés
 clean:
-    rm -rf $(OBJ_DIR) $(BIN_DIR)
+	rm -f $(OUTPUT)
 
-.PHONY: all clean
+# Règle pour forcer la recompilation
+rebuild: clean all
