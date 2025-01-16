@@ -70,13 +70,13 @@ void affichage(Partie partie) {
             printf("│");
             afficher_piece(tableau[i][j].p, tableau[i][j].c);
         }
-        if (i == 7){
-            printf("│1  Score blanc: %d et temps restant : %d secondes\n", score(partie, blanc) - score(partie, noir), partie.temps_blanc);
-        }
-        else if (i == 0){
-            printf("│8  Score noir: %d et temps restant : %d secondes\n", score(partie, noir) - score(partie, blanc), partie.temps_noir);
-        }
-        else if (i == 2){
+        //if (i == 7){
+        //    printf("│1  Score blanc: %d et temps restant : %d secondes\n", score(partie, blanc) - score(partie, noir), partie.temps_blanc);
+        //}
+        //else if (i == 0){
+            //printf("│8  Score noir: %d et temps restant : %d secondes\n", score(partie, noir) - score(partie, blanc), partie.temps_noir);
+        //}
+        if (i == 2){
             printf("│6  Exemple de format pour les cases : 'e2' ou 'F5'\n");
         }
 
@@ -84,7 +84,7 @@ void affichage(Partie partie) {
             printf("│4    's' pour sauvegarder, 'q' pour quitter\n");
         }
         else if (i == 5){
-            printf("│3            'r' pour recommencer\n");
+            printf("│3                'r' pour reset\n");
         }
         else{
         printf("│%d\n", 8 - i);

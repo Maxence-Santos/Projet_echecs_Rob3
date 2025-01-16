@@ -9,14 +9,18 @@
 #include "mat.h"
 #include "sauvegarde.h"
 #include <time.h>
+#include "ia.h"
 
 int main() {
     int mat = 0;
     Partie partie;
     char choix;
     partie.nb_coups = 0;
-
+    char choixia;
     // Demander si l'utilisateur souhaite charger une partie
+    printf("Bienvenue dans le jeu d'echecs.\n");
+    printf("Voulez-vous jouer contre une IA ? (o/n) : ");
+    scanf(" %c", &choixia);
     printf("Voulez-vous charger une partie ? (o/n) : ");
     scanf(" %c", &choix);
     partie.plateau = creerplateau();
@@ -55,6 +59,7 @@ int main() {
         scanf("%d", &partie.temps_blanc);
         partie.temps_noir = partie.temps_blanc;
     }
+    if (choixia == 'n' || choixia == 'N'){
     while (!mat) {
         // Changer de joueur actif
         partie.joueur_actif = (partie.joueur_actif == blanc) ? noir : blanc;
@@ -81,7 +86,7 @@ int main() {
 
         int avant = time(NULL);
         // Appliquer le coup proposé par le joueur
-        appliquer_coup(&partie, proposition_joueur(partie));
+        appliquer_coup(&partie, proposition_joueur(partie), 0);
         partie.nb_coups++;
         int apres = time(NULL);
         if (partie.joueur_actif == blanc){
@@ -98,6 +103,58 @@ int main() {
             printf("Temps ecoule pour les noirs, les blanc gagnent !\n");
             break;
         }
+    }
+    }
+    else{
+        while (!mat) {
+        // Changer de joueur actif
+        partie.joueur_actif = (partie.joueur_actif == blanc) ? noir : blanc;
+        // Afficher le plateau
+        // Vérifier si le joueur actif est en échec
+        if (est_en_echec(partie, partie.joueur_actif)) {
+            printf(" \n");
+            if (est_en_mat(partie, partie.joueur_actif)) {
+                if (partie.joueur_actif == blanc) {
+                    printf("\n\nEchec et mat, les noirs gagnent !\n");
+                } else {
+                    printf("\n\nEchec et mat, les blancs gagnent !\n");
+                }
+                mat = 1;
+                break;
+            }
+            if (partie.joueur_actif == blanc) {
+                printf("\nEchec au roi blanc.\n");
+            } else {
+                printf("\nEchec au roi noir.\n");
+            }
+        }
+        if (partie.joueur_actif == blanc) {affichage(partie);}
+
+        int avant = time(NULL);
+        if (partie.joueur_actif == blanc){
+            appliquer_coup(&partie, proposition_joueur(partie), 0);
+        }
+        else{
+            appliquer_coup(&partie, proposition_ia(partie), 1);
+        }
+        // Appliquer le coup proposé par le joueur
+        partie.nb_coups++;
+        int apres = time(NULL);
+        if (partie.joueur_actif == blanc){
+            partie.temps_blanc -= apres - avant;
+        }
+        else {
+            partie.temps_noir -= apres - avant;
+        }
+        if (partie.temps_blanc <= 0) {
+            printf("Temps ecoule pour les blancs, les noirs gagnent !\n");
+            break;
+        }
+        if (partie.temps_noir <= 0) {
+            printf("Temps ecoule pour les noirs, les blanc gagnent !\n");
+            break;
+        }
+    }
     }
 
     // Libérer la mémoire utilisée par le plateau

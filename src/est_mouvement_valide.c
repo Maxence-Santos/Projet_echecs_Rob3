@@ -9,6 +9,8 @@ bool est_mouvement_valide(Coup coup, Piece type_piece, Partie partie, Couleur jo
     if (di == 0 && dj == 0) {
         return false;
     }
+    //if (coup.iFrom < 0 || coup.iFrom > 7 || coup.jFrom < 0 || coup.jFrom > 7 || coup.iTo < 0 || coup.iTo > 7 || coup.jTo < 0 || coup.jTo > 7) {
+    //}
 
     switch (type_piece) {
         case roi:
@@ -84,9 +86,14 @@ bool est_mouvement_valide(Coup coup, Piece type_piece, Partie partie, Couleur jo
 
         case pion:
             // Le pion se déplace d'une case en avant ou capture en diagonale
-            if (dj == 0 && di == 1 && partie.plateau[coup.iTo][coup.jTo].p == vide) {
-                return true;
-            } else if (di == 1 && dj == 1 && partie.plateau[coup.iTo][coup.jTo].p != vide) {
+            if (dj == 0 && partie.plateau[coup.iTo][coup.jTo].p == vide) {
+                if (blanc == joueur_actif && coup.iTo == coup.iFrom - 1) {
+                    return true;
+                }
+                else if (noir == joueur_actif && coup.iTo == coup.iFrom + 1) {
+                    return true;
+                }
+            } else if (di == 1 && dj == 1 && partie.plateau[coup.iTo][coup.jTo].p != vide && partie.plateau[coup.iTo][coup.jTo].c != joueur_actif) {
                 return true;
             }
             // Le pion peut se déplacer de deux cases en avant s'il n'a pas encore bougé

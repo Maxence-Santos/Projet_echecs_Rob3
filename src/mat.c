@@ -26,7 +26,7 @@ bool est_en_mat(Partie partie, Couleur joueur_verif) {
         if (coup.iTo >= 0 && coup.iTo < 8 && coup.jTo >= 0 && coup.jTo < 8) {
             if (est_mouvement_valide(coup, roi, partie, joueur_verif)) {
                 partie2 = copie_tableau(partie);
-                appliquer_coup(&partie2, coup);
+                appliquer_coup(&partie2, coup, 1);
                 if (!est_en_echec(partie2, joueur_verif)) {
                     return false;
                 }
@@ -45,7 +45,7 @@ bool est_en_mat(Partie partie, Couleur joueur_verif) {
                         coup.jTo = l;
                         if (est_mouvement_valide(coup, partie.plateau[i][j].p, partie, joueur_verif)) {
                             partie2 = copie_tableau(partie);
-                            appliquer_coup(&partie2, coup);
+                            appliquer_coup(&partie2, coup,1);
                             if (!est_en_echec(partie2, joueur_verif)) {
                                 return false;
                             }

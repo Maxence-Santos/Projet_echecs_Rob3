@@ -57,7 +57,6 @@ bool charger_partie(Partie partie, int id, int *donnees) {
                 }
             }
             fclose(file);
-            printf("Joueur actif : %d\n", partie.joueur_actif);
             return true; // Chargement réussi
         }
     }

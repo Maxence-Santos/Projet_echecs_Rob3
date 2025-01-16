@@ -101,7 +101,7 @@ Coup proposition_joueur(Partie partie) {
     if (est_mouvement_valide(coup, partie.plateau[coup.iFrom][coup.jFrom].p, partie, partie.joueur_actif)) {
         Partie partie2;
         partie2 = copie_tableau(partie);
-        appliquer_coup(&partie2, coup);
+        appliquer_coup(&partie2, coup,0);
 
         // Vérifier si le roi est en échec après le mouvement
         if (est_en_echec(partie2, partie2.joueur_actif)) {

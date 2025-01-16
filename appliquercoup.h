@@ -2,6 +2,6 @@
 #define APPLIQUERCOUP_H
 #include "struct.h"
 
-void appliquer_coup(Partie* partie, Coup coup);
+void appliquer_coup(Partie* partie, Coup coup, int ia);
 
 #endif // APPLIQUERCOUP_H
