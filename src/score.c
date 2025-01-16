@@ -30,7 +30,11 @@ int score(Partie partie, Couleur joueur_actif){
         }
     }
     if (est_en_mat(partie, joueur_actif)){
-        score -= 1000;
+        score -= 50;
+    }
+
+    if (est_en_echec(partie, joueur_actif)){
+        score -= 5;
     }
     return score;
 }

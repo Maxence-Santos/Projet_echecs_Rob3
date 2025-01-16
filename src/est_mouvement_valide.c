@@ -9,8 +9,9 @@ bool est_mouvement_valide(Coup coup, Piece type_piece, Partie partie, Couleur jo
     if (di == 0 && dj == 0) {
         return false;
     }
-    //if (coup.iFrom < 0 || coup.iFrom > 7 || coup.jFrom < 0 || coup.jFrom > 7 || coup.iTo < 0 || coup.iTo > 7 || coup.jTo < 0 || coup.jTo > 7) {
-    //}
+    if (coup.iFrom < 0 || coup.iFrom > 7 || coup.jFrom < 0 || coup.jFrom > 7 || coup.iTo < 0 || coup.iTo > 7 || coup.jTo < 0 || coup.jTo > 7) {
+        return false;
+    }
 
     switch (type_piece) {
         case roi:
@@ -109,4 +110,17 @@ bool est_mouvement_valide(Coup coup, Piece type_piece, Partie partie, Couleur jo
         default:
             return false;
     }
+}
+
+bool mouvement_echecia(Coup coup, Partie partie) {
+        Partie partie2;
+        partie2 = copie_tableau(partie);
+        appliquer_coup(&partie2, coup,1);
+
+        // Vérifier si le roi est en échec après le mouvement
+        if (est_en_echec(partie2, partie.joueur_actif)) {
+            libererTableau(partie2);
+            return false;
+        }
+        return true;
 }
