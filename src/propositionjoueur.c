@@ -56,7 +56,7 @@ Coup proposition_joueur(Partie partie) {
     }
 
     // Demander à l'utilisateur la case de destination
-    printf("Entrez la case de la piece que vous voulez deplacer : ");
+    printf("Entrez la case où vous voulez deplacer la pièce : ");
     scanf("%2s", case_to);
 
     // Gestion de la commande 's' pour sauvegarder
