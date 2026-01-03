@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+        "creer_plateau.h": "c",
+        "affichage.h": "c",
+        "appliquercoup.h": "c",
+        "string.h": "c"
+    },
+
+    "cmake.configureSettings": {
+    "CMAKE_TOOLCHAIN_FILE": "C:/Users/PC-Maxence/vcpkg/scripts/buildsystems/vcpkg.cmake"
+  }
+}
