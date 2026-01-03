@@ -263,6 +263,5 @@ int main() {
             rejouer(choixia, partie, tableau);
         }
     }
-    
     return 0;
 }
