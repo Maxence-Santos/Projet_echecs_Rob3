@@ -1,8 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <windows.h>
 #include <string.h>
 #include "struct.h"
+
+#ifdef _WIN32
+    #include <windows.h>
+#else
+    #include <unistd.h>
+    #include <sys/types.h>
+    #include <sys/wait.h>
+#endif
 #include "creer_plateau.h"
 #include "affichage.h"
 #include "appliquercoup.h"
@@ -16,8 +23,13 @@
 #include "copie_tableau.h"
 
 // Global handles pour la communication avec check_moves daemon
-static HANDLE g_daemon_stdin = NULL;
-static HANDLE g_daemon_process = NULL;
+#ifdef _WIN32
+    static HANDLE g_daemon_stdin = NULL;
+    static HANDLE g_daemon_process = NULL;
+#else
+    static int g_daemon_stdin = -1;
+    static pid_t g_daemon_pid = -1;
+#endif
 
 // Lancer check_moves daemon quand le jeu est lancé
 static int start_daemon(void) {
@@ -58,12 +70,43 @@ static int start_daemon(void) {
     
     return 1;
 #else
-    return 0;
+    int pipe_fd[2];
+    if (pipe(pipe_fd) == -1) {
+        fprintf(stderr, "Failed to create pipe\n");
+        return 0;
+    }
+    
+    pid_t pid = fork();
+    if (pid == -1) {
+        fprintf(stderr, "Failed to fork\n");
+        close(pipe_fd[0]);
+        close(pipe_fd[1]);
+        return 0;
+    }
+    
+    if (pid == 0) {
+        // Processus enfant
+        close(pipe_fd[1]);
+        dup2(pipe_fd[0], STDIN_FILENO);
+        close(pipe_fd[0]);
+        
+        execlp("./check_moves", "check_moves", "--daemon", "--quiet", NULL);
+        fprintf(stderr, "Failed to exec check_moves\n");
+        exit(1);
+    }
+    
+    // Processus parent
+    close(pipe_fd[0]);
+    g_daemon_stdin = pipe_fd[1];
+    g_daemon_pid = pid;
+    
+    return 1;
 #endif
 }
 
 // Query daemon: écriture des FEN et du compt et affichage dans le daemon
 static void query_move_count_for_fen(const char *fen, int compt) {
+#ifdef _WIN32
     if (!g_daemon_stdin || !fen) return;
     
     DWORD written = 0;
@@ -78,10 +121,25 @@ static void query_move_count_for_fen(const char *fen, int compt) {
         fprintf(stderr, "Failed to write to daemon\n");
     }
     FlushFileBuffers(g_daemon_stdin);
+#else
+    if (g_daemon_stdin < 0 || !fen) return;
+    
+    char buf[1024];
+    if (compt >= 0) {
+        snprintf(buf, sizeof(buf), "%s|||%d\n", fen, compt);
+    } else {
+        snprintf(buf, sizeof(buf), "%s\n", fen);
+    }
+    
+    if (write(g_daemon_stdin, buf, strlen(buf)) == -1) {
+        fprintf(stderr, "Failed to write to daemon\n");
+    }
+#endif
 }
 
 // Cleanup: stop daemon
 static void stop_daemon(void) {
+#ifdef _WIN32
     if (g_daemon_stdin) {
         DWORD written = 0;
         WriteFile(g_daemon_stdin, "quit\n", 5, &written, NULL);
@@ -93,6 +151,17 @@ static void stop_daemon(void) {
         CloseHandle(g_daemon_process);
         g_daemon_process = NULL;
     }
+#else
+    if (g_daemon_stdin >= 0) {
+        write(g_daemon_stdin, "quit\n", 5);
+        close(g_daemon_stdin);
+        g_daemon_stdin = -1;
+    }
+    if (g_daemon_pid > 0) {
+        waitpid(g_daemon_pid, NULL, 0);
+        g_daemon_pid = -1;
+    }
+#endif
 }
 
 Tab *init_tableau() {
@@ -231,7 +300,11 @@ int main() {
             fprintf(stderr, "Failed to start daemon\n");
             return 1;
         }
-        Sleep(500);
+        #ifdef _WIN32
+            Sleep(500);
+        #else
+            usleep(500000);  // 500ms = 500000 microseconds
+        #endif
     }
     while (1) {
         partie.joueur_actif = (partie.joueur_actif == blanc) ? noir : blanc;
