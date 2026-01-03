@@ -179,8 +179,8 @@ bool est_mouvement_valide(Coup coup, Piece type_piece, Partie partie, Couleur jo
                         // Vérifier que ce pion ennemi vient de faire un double pas
                         if (partie.dernier_coup.iTo == enemy_row && partie.dernier_coup.jTo == enemy_col) {
                             int edi = partie.dernier_coup.iFrom - partie.dernier_coup.iTo;
-                            if (edi == 2 || edi == -2) {  // Enemy pawn moved 2 squares
-                                return true;  // En passant is valid
+                            if (edi == 2 || edi == -2) {  // Pion enemi bougé de 2 cases
+                                return true;  // En passant est valide
                             }
                         }
                     }
